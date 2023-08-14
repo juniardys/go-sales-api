@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-sales-api/models"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -30,10 +31,18 @@ func main() {
 
 	DB = db
 	fmt.Println("db connected successfully")
+
+	AutoMigrate(db)
 }
 
 func AutoMigrate(connection *gorm.DB) {
 	connection.Debug().AutoMigrate(
-		&models
+		&models.Cashier{},
+		&models.Category{},
+		&models.Payment{},
+		&models.PaymentType{},
+		&models.Product{},
+		&models.Discount{},
+		&models.Order{},
 	)
 }
